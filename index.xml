@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>李一博的blog on 李一博的blog</title>
-    <link>http://example.org/</link>
+    <link>https://haust-lyb.github.io/</link>
     <description>Recent content in 李一博的blog on 李一博的blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -10,19 +10,19 @@
     
     <item>
       <title>Posts</title>
-      <link>http://example.org/posts/</link>
+      <link>https://haust-lyb.github.io/posts/</link>
       <pubDate>Thu, 02 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/</guid>
+      <guid>https://haust-lyb.github.io/posts/</guid>
       <description></description>
     </item>
     
     <item>
       <title>关于我</title>
-      <link>http://example.org/about/</link>
+      <link>https://haust-lyb.github.io/about/</link>
       <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/about/</guid>
+      <guid>https://haust-lyb.github.io/about/</guid>
       <description>&lt;h1 id=&#34;还没写呢-别看了&#34;&gt;还没写呢 别看了！&lt;/h1&gt;
 </description>
     </item>
