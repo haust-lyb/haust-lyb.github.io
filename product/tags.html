@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>分类</title>
+    <!--    <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">-->
+    <!--    <meta name="author" content="Theme PaperMod">-->
+    <!--    <link rel="canonical" href="https://adityatelange.github.io/hugo-PaperMod/">-->
+
+    <!--    <link rel="apple-touch-icon" href="https://adityatelange.github.io/hugo-PaperMod/apple-touch-icon.png">-->
+    <link rel="icon" href="./statics/imgs/lybblog.ico">
+    <link rel="stylesheet" href="./statics/css/lybblog.css">
+    <script src="./statics/vue/vue.js"></script>
+    <script src="./statics/jquery/jquery.min.js"></script>
+    <meta name="baidu-site-verification" content="code-w3pNK7OBaJ" />
+    <style>
+        .tagdataitem:hover{
+            cursor: pointer;
+            background: #a909ed;
+        }
+        .tagdataitem:hover a{
+            color: white;
+        }
+
+        .tagdataitem{
+            border-left: 1px dashed grey;
+        }
+    </style>
+</head>
+<body class="list" id="top">
+<!--<script>-->
+<!--if (window.matchMedia('(prefers-color-scheme: dark)').matches) {-->
+<!--document.body.classList.add('dark');-->
+<!--}-->
+<!--</script>-->
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo">
+            <a href="./index.html">
+                <span style="color: deepskyblue;padding: 0px 10px">李一博</span>的博客
+            </a>
+        </h1>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+<!--            <li><a href="./archives.html" class=""><span>档案</span></a></li>-->
+            <li><a href="./index.html" class=""><span>首页</span></a></li>
+            <li><a href="./tags.html" class="active"><span>分类</span></a></li>
+            <li><a href="./aboutme.html" class=""><span>关于我</span></a></li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+    <header class="page-header"><h2>所有分类（标签）</h2></header>
+    <div id="tagsapp">
+        <div v-for="item in tagdata" style="padding-left: 20px;">
+            <div class="tagdataitem"><a href="#">&nbsp;---&nbsp;{{item.label}}</a></div>
+            <div v-for="item in item.children" style="padding-left: 20px;">
+                <div class="tagdataitem"><a href="#">&nbsp;---&nbsp;{{item.label}}</a></div>
+                <div v-for="item in item.children" style="padding-left: 20px;">
+                    <div class="tagdataitem"><a href="#">&nbsp;---&nbsp;{{item.label}}</a></div>
+                    <div v-for="item in item.children" style="padding-left: 20px;">
+                        <div class="tagdataitem"><a href="#">&nbsp;---&nbsp;{{item.label}}</a></div>
+                        <div v-for="item in item.children" style="padding-left: 20px;">
+                            <div class="tagdataitem"><a href="#">&nbsp;---&nbsp;{{item.label}}</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <span>© 2020 <a href="https://gitee.com/haust_lyb">haust_lyb</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z"></path>
+        </svg>
+    </button>
+</a>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({behavior: "smooth"});
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+    // document.body.style.backgroundImage="URL(./statics/imgs/bg.png)";
+</script>
+
+
+<!-- Snow Start -->
+<canvas id="Snow"></canvas>
+<script>
+    if (screen && screen.width > 768) {
+        (function () {
+            var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+            window.requestAnimationFrame = requestAnimationFrame;
+        })();
+
+        (function () {
+            var flakes = [],
+                canvas = document.getElementById("Snow"),
+                ctx = canvas.getContext("2d"),
+                flakeCount = 200,
+                mX = -100,
+                mY = -100;
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            function snow() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < flakeCount; i++) {
+                    var flake = flakes[i],
+                        x = mX,
+                        y = mY,
+                        minDist = 150,
+                        x2 = flake.x,
+                        y2 = flake.y;
+
+                    var dist = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)),
+                        dx = x2 - x,
+                        dy = y2 - y;
+
+                    if (dist < minDist) {
+                        var force = minDist / (dist * dist),
+                            xcomp = (x - x2) / dist,
+                            ycomp = (y - y2) / dist,
+                            deltaV = force / 2;
+
+                        flake.velX -= deltaV * xcomp;
+                        flake.velY -= deltaV * ycomp;
+
+                    } else {
+                        flake.velX *= .98;
+                        if (flake.velY <= flake.speed) {
+                            flake.velY = flake.speed
+                        }
+                        flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
+                    }
+
+                    ctx.fillStyle = "rgba(255,255,255," + flake.opacity + ")";
+                    flake.y += flake.velY;
+                    flake.x += flake.velX;
+
+                    if (flake.y >= canvas.height || flake.y <= 0) {
+                        reset(flake);
+                    }
+
+                    if (flake.x >= canvas.width || flake.x <= 0) {
+                        reset(flake);
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(snow);
+            };
+
+            function reset(flake) {
+                flake.x = Math.floor(Math.random() * canvas.width);
+                flake.y = 0;
+                flake.size = (Math.random() * 3) + 2;
+                flake.speed = (Math.random() * 1) + 0.5;
+                flake.velY = flake.speed;
+                flake.velX = 0;
+                flake.opacity = (Math.random() * 0.5) + 0.3;
+            }
+
+            function init() {
+                for (var i = 0; i < flakeCount; i++) {
+                    var x = Math.floor(Math.random() * canvas.width),
+                        y = Math.floor(Math.random() * canvas.height),
+                        size = (Math.random() * 3) + 2,
+                        speed = (Math.random() * 1) + 0.5,
+                        opacity = (Math.random() * 0.5) + 0.3;
+
+                    flakes.push({
+                        speed: speed,
+                        velY: speed,
+                        velX: 0,
+                        x: x,
+                        y: y,
+                        size: size,
+                        stepSize: (Math.random()) / 30 * 1,
+                        step: 0,
+                        angle: 180,
+                        opacity: opacity
+                    });
+                }
+
+                snow();
+            };
+
+            document.addEventListener("mousemove", function (e) {
+                mX = e.clientX,
+                    mY = e.clientY
+            });
+            window.addEventListener("resize", function () {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+            init();
+            //$(".colorpick-btn")[1].click();//模拟点击 更换皮肤
+        })();
+    }
+</script>
+
+<script>
+    new Vue({
+        el:"#tagsapp",
+        data:{
+            tagdata:[
+    {
+        "label": "java",
+        "children": [
+            {
+                "label": "jvm",
+                "parentId": "1307986771019173888",
+                "id": "1307986771119837184"
+            },
+            {
+                "label": "java基础",
+                "parentId": "1307986771019173888",
+                "id": "1307986771124031488"
+            },
+            {
+                "label": "java高级",
+                "parentId": "1307986771019173888",
+                "id": "1307986771124031489"
+            }
+        ],
+        "id": "1307986771019173888"
+    },
+    {
+        "label": "数据结构和算法",
+        "id": "1307986771124031490"
+    },
+    {
+        "label": "前端",
+        "children": [
+            {
+                "label": "js",
+                "parentId": "1307986771124031491",
+                "id": "1307986771124031492"
+            },
+            {
+                "label": "vue",
+                "parentId": "1307986771124031491",
+                "id": "1307986771124031493"
+            },
+            {
+                "label": "微信小程序",
+                "parentId": "1307986771124031491",
+                "id": "1307986771128225792"
+            },
+            {
+                "label": "公众号",
+                "parentId": "1307986771124031491",
+                "id": "1307986771128225793"
+            }
+        ],
+        "id": "1307986771124031491"
+    },
+    {
+        "label": "游戏",
+        "children": [
+            {
+                "label": "英雄联盟",
+                "parentId": "1307986771128225794",
+                "id": "1307986771128225795"
+            },
+            {
+                "label": "鬼泣",
+                "parentId": "1307986771128225794",
+                "id": "1307986771128225796"
+            },
+            {
+                "label": "nba2kOnline",
+                "parentId": "1307986771128225794",
+                "id": "1307986771128225797"
+            }
+        ],
+        "id": "1307986771128225794"
+    },
+    {
+        "label": "其他",
+        "children": [
+            {
+                "label": "个人日记",
+                "parentId": "1307986771128225798",
+                "id": "1334381362811113472"
+            }
+        ],
+        "id": "1307986771128225798"
+    },
+    {
+        "label": "设计模式",
+        "id": "1307986771136614401"
+    }
+]
+        }
+    })
+</script>
+</body>
+</html>

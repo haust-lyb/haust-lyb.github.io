@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>jdk,mysql等的安装</title>
+    <!--    <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">-->
+    <!--    <meta name="author" content="Theme PaperMod">-->
+    <!--    <link rel="canonical" href="https://adityatelange.github.io/hugo-PaperMod/">-->
+
+    <!--    <link rel="apple-touch-icon" href="https://adityatelange.github.io/hugo-PaperMod/apple-touch-icon.png">-->
+    <link rel="icon" href="statics/imgs/lybblog.ico">
+    <link rel="stylesheet" href="statics/css/lybblog.css">
+    <meta name="baidu-site-verification" content="code-w3pNK7OBaJ" />
+    <!--    <link rel="stylesheet" href="./statics/editor/css/editormd.min.css" />-->
+    <link rel="stylesheet" href="./statics/editor/css/editormd.preview.min.css"/>
+    <!--    <link rel="stylesheet" href="./statics/editor/css/katex.min.css" />-->
+    <style>
+        #custom-toc-container {
+            margin: 0 auto 15px;
+            overflow: visible;
+        }
+
+        #custom-toc-container > .markdown-toc {
+            padding: 10px;
+        }
+
+        .post-tags { margin: 20px 0;clear:both ;text-align:left;font-size:12px;}
+        .post-tags a { line-height: 24px; height: 24px; display: inline-block; background: #fff; padding: 0px 11px; margin: 10px 5px 0 0; border-radius: 8px; -moz-transition: all 0.5s; -webkit-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+        .post-tags a { color: #FFF;text-decoration:none }
+        .post-tags a:hover { border-radius: 0; text-shadow: #000 1px 1px 1px }
+        .post-tags li:nth-child(8n-7) a{ background: #8A9B0F }
+        .post-tags li:nth-child(8n-6) a{ background: #EB6841 }
+        .post-tags li:nth-child(8n-5) a{ background: #3FB8AF }
+        .post-tags li:nth-child(8n-4) a{ background: #FE4365 }
+        .post-tags li:nth-child(8n-3) a{ background: #FC9D9A }
+        .post-tags li:nth-child(8n-2) a{ background: #EDC951 }
+        .post-tags li:nth-child(8n-1) a{ background: #C8C8A9 }
+        .post-tags li:nth-child(8n) a{ background: #83AF9B }
+        .post-tags li:first-child a{ background: #036564 }
+        .post-tags li:last-child a{ background: #3299BB }
+
+
+    </style>
+</head>
+<body class="single" id="top">
+<div class="headBand"></div>
+<!--<script>-->
+<!--if (window.matchMedia('(prefers-color-scheme: dark)').matches) {-->
+<!--document.body.classList.add('dark');-->
+<!--}-->
+<!--</script>-->
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo">
+            <a href="./index.html">
+                <span style="color: deepskyblue;padding: 0px 10px">李一博</span>的博客
+            </a>
+        </h1>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()">
+<!--            <li><a href="./archives.html" class=""><span>档案</span></a></li>-->
+            <li><a href="./index.html" class=""><span>首页</span></a></li>
+            <li><a href="./tags.html" class=""><span>分类</span></a></li>
+            <li><a href="./aboutme.html" class=""><span>关于我</span></a></li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+    <article class="post-single">
+        <header class="post-header">
+            <h1 class="post-title">jdk,mysql等的安装</h1>
+            <div class="post-meta">
+                <time>2020-11-14 05:56:43</time>
+            </div>
+        </header>
+        <div class="post-content" style="background: white;border: 1px dashed lightgray">
+            <div style="margin: 20px;">
+                <h2>目录：</h2>
+                <div class="markdown-body editormd-preview-container" id="custom-toc-container"></div>
+            </div>
+            <div style="height: 2px;background: #99cc99"></div>
+            <div id="lyb-editormd-view">
+                <textarea style="display:none;"># jdk1.8
+> 下载jdk或者上传到服务器
+
+上传jdk1.8
+解压方在/usr/java/ 下 （也可以其他地方）
+配置环境变量
+vim /etc/profile
+在文件最后加上如下图所示：
+![图片alt](../uploads/editor_imgs/2020/11/3/3f217ef34044419b9eb0c41617e72375__file_1605505909000.png ''图片title'')
+# jdk环境变量配置
+export JAVA_HOME=/usr/java/jdk1.8.0_221
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+
+# tomcat
+> 下载解压即可 比较简单
+
+# mysql 
+> 1.下载mysql或者上传到服务器
+
+MySQL 5.7 Linux安装包下载：https://dev.mysql.com/downloads/mysql/
+![图片alt](../uploads/editor_imgs/2020/11/3/353502127fd2430dae2a1d5fbe0b70da__file_1605505994000.png ''图片title'')
+2.查询并卸载系统自带的Mariadb
+`rpm -qa | grep mariadb`
+`rpm -e --nodeps 文件名`
+3.为了方便数据库管理，对于安装的MySQL数据库，生产上我们都会建立一个mysql用户和mysql用户组
+```bash
+# 添加mysql用户组
+groupadd mysql
+# 添加mysql用户
+useradd -g mysql mysql -d /home/mysql
+# 修改mysql用户的登陆密码
+passwd mysql
+```
+4.创建临时目录、数据目录和日志目录
+```bash
+/home/mysql/3306/data
+/home/mysql/3306/log
+/home/mysql/3306/tmp
+```
+5.将下载的mysql-5.7.21-linux-glibc2.12-x86_64.tar安装包上传至服务器/usr/local目录下；
+```bash
+# 解压缩
+tar -xvf mysql-5.7.21-linux-glibc2.12-x86_64.tar
+# 会得到一个mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz文件，再解压缩
+tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz
+# 建立软链接，便于以后版本升级
+ln -s mysql-5.7.21-linux-glibc2.12-x86_64 mysql
+# 修改mysql文件夹下所有文件的用户和用户组
+chown -R mysql:mysql mysql/
+```
+6.创建配置文件
+```bash
+# 创建配置文件
+cd /etc
+# 在my.cnf文件中添加对应的配置项，文章末尾会提供一个默认的my.cnf配置
+vi my.cnf
+```
+7.安装数据库
+```bash
+# 初始化数据库，并指定启动mysql的用户
+./mysqld --initialize --user=mysql
+```
+这里最好指定启动mysql的用户名，否则就会在启动MySQL时出现权限不足的问题
+安装完成后，在my.cnf中配置的~~datadir目录~~(其实是log的那个目录下)下生成一个error.log文件，里面记录了root用户的随机密码。
+8.设置开机自启动服务
+```bash
+# 复制启动脚本到资源目录
+cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld
+# 增加mysqld服务控制脚本执行权限
+chmod +x /etc/rc.d/init.d/mysqld
+# 将mysqld服务加入到系统服务
+chkconfig --add mysqld
+# 检查mysqld服务是否已经生效
+chkconfig --list mysqld
+# 切换至mysql用户，启动mysql
+service mysqld start
+```
+9.配置环境变量
+为了更好的操作mysql，配置环境变量。
+```bash
+# 切换至mysql用户
+su - mysql
+# 修改配置文件，增加export PATH=$PATH:/usr/local/mysql/bin
+vi .bash_profile
+# 立即生效
+source .bash_profile
+登陆，修改密码
+# 登陆mysql
+mysql -uroot -p
+# 修改root用户密码
+set password for root@localhost=password("123456");
+```
+## 总结
+好了，到此关于CentOS 7离线安装MySQL5.7的总结完毕。如果大家有任何疑问，或者在安装过程中卡住了，都可以在下方留言。希望我的这篇文章对大家有帮助。
+## 附录
+下述的my.cnf配置仅供参考，如果你有更好的建议，请告诉我。
+```bash
+[client]                                        # 客户端设置，即客户端默认的连接参数
+port = 3306                                    # 默认连接端口
+socket = /home/mysql/3306/tmp/mysql.sock                        # 用于本地连接的socket套接字，mysqld守护进程生成了这个文件
+[mysqld]                                        # 服务端基本设置
+# 基础设置
+server-id = 1                                  # Mysql服务的唯一编号 每个mysql服务Id需唯一
+port = 3306                                    # MySQL监听端口
+basedir = /usr/local/mysql                      # MySQL安装根目录
+datadir = /home/mysql/3306/data                      # MySQL数据文件所在位置
+tmpdir  = /home/mysql/3306/tmp                                  # 临时目录，比如load data infile会用到
+socket = /home/mysql/3306/tmp/mysql.sock        # 为MySQL客户端程序和服务器之间的本地通讯指定一个套接字文件
+pid-file = /home/mysql/3306/log/mysql.pid      # pid文件所在目录
+skip_name_resolve = 1                          # 只能用IP地址检查客户端的登录，不用主机名
+character-set-server = utf8mb4                  # 数据库默认字符集,主流字符集支持一些特殊表情符号（特殊表情符占用4个字节）
+transaction_isolation = READ-COMMITTED          # 事务隔离级别，默认为可重复读，MySQL默认可重复读级别
+collation-server = utf8mb4_general_ci          # 数据库字符集对应一些排序等规则，注意要和character-set-server对应
+init_connect='SET NAMES utf8mb4'                # 设置client连接mysql时的字符集,防止乱码
+lower_case_table_names = 1                      # 是否对sql语句大小写敏感，1表示不敏感
+max_connections = 400                          # 最大连接数
+max_connect_errors = 1000                      # 最大错误连接数
+explicit_defaults_for_timestamp = true          # TIMESTAMP如果没有显示声明NOT NULL，允许NULL值
+max_allowed_packet = 128M                      # SQL数据包发送的大小，如果有BLOB对象建议修改成1G
+interactive_timeout = 1800                      # MySQL连接闲置超过一定时间后(单位：秒)将会被强行关闭
+wait_timeout = 1800                            # MySQL默认的wait_timeout值为8个小时, interactive_timeout参数需要同时配置才能生效
+tmp_table_size = 16M                            # 内部内存临时表的最大值 ，设置成128M；比如大数据量的group by ,order by时可能用到临时表；超过了这个值将写入磁盘，系统IO压力增大
+max_heap_table_size = 128M                      # 定义了用户可以创建的内存表(memory table)的大小
+query_cache_size = 0                            # 禁用mysql的缓存查询结果集功能；后期根据业务情况测试决定是否开启；大部分情况下关闭下面两项
+query_cache_type = 0
+# 用户进程分配到的内存设置，每个session将会分配参数设置的内存大小
+read_buffer_size = 2M                          # MySQL读入缓冲区大小。对表进行顺序扫描的请求将分配一个读入缓冲区，MySQL会为它分配一段内存缓冲区。
+read_rnd_buffer_size = 8M                      # MySQL的随机读缓冲区大小
+sort_buffer_size = 8M                          # MySQL执行排序使用的缓冲大小
+binlog_cache_size = 1M                          # 一个事务，在没有提交的时候，产生的日志，记录到Cache中；等到事务提交需要提交的时候，则把日志持久化到磁盘。默认binlog_cache_size大小32K
+back_log = 130                                  # 在MySQL暂时停止响应新请求之前的短时间内多少个请求可以被存在堆栈中；官方建议back_log = 50 + (max_connections / 5),封顶数为900
+# 日志设置
+log_error = /home/mysql/3306/log/error.log                          # 数据库错误日志文件
+slow_query_log = 1                              # 慢查询sql日志设置
+long_query_time = 1                            # 慢查询时间；超过1秒则为慢查询
+slow_query_log_file = /home/mysql/3306/log/slow.log                  # 慢查询日志文件
+log_queries_not_using_indexes = 1              # 检查未使用到索引的sql
+log_throttle_queries_not_using_indexes = 5      # 用来表示每分钟允许记录到slow log的且未使用索引的SQL语句次数。该值默认为0，表示没有限制
+min_examined_row_limit = 100                    # 检索的行数必须达到此值才可被记为慢查询，查询检查返回少于该参数指定行的SQL不被记录到慢查询日志
+expire_logs_days = 5                            # MySQL binlog日志文件保存的过期时间，过期后自动删除
+# 主从复制设置
+log-bin = mysql-bin                            # 开启mysql binlog功能
+binlog_format = ROW                            # binlog记录内容的方式，记录被操作的每一行
+binlog_row_image = minimal                      # 对于binlog_format = ROW模式时，减少记录日志的内容，只记录受影响的列
+# Innodb设置
+innodb_open_files = 500                        # 限制Innodb能打开的表的数据，如果库里的表特别多的情况，请增加这个。这个值默认是300
+innodb_buffer_pool_size = 64M                  # InnoDB使用一个缓冲池来保存索引和原始数据，一般设置物理存储的60% ~ 70%；这里你设置越大,你在存取表里面数据时所需要的磁盘I/O越少
+innodb_log_buffer_size = 2M                    # 此参数确定写日志文件所用的内存大小，以M为单位。缓冲区更大能提高性能，但意外的故障将会丢失数据。MySQL开发人员建议设置为1－8M之间
+innodb_flush_method = O_DIRECT                  # O_DIRECT减少操作系统级别VFS的缓存和Innodb本身的buffer缓存之间的冲突
+innodb_write_io_threads = 4                    # CPU多核处理能力设置，根据读，写比例进行调整
+innodb_read_io_threads = 4
+innodb_lock_wait_timeout = 120                  # InnoDB事务在被回滚之前可以等待一个锁定的超时秒数。InnoDB在它自己的锁定表中自动检测事务死锁并且回滚事务。InnoDB用LOCK TABLES语句注意到锁定设置。默认值是50秒
+innodb_log_file_size = 32M                      # 此参数确定数据日志文件的大小，更大的设置可以提高性能，但也会增加恢复故障数据库所需的时间
+```
+## 安装错误说明
+一、在安装过程中出现./mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory错误时，请切回root用户，执行以下命令即可：
+`yum install libaio`
+</textarea>
+            </div>
+        </div>
+        <footer class="post-footer" style="background: white;padding: 10px;">
+            标签（分类）：
+            <ul class="post-tags" style="margin-top: 0px;">
+                <li><a href="#">java / java高级</a></li>
+
+            </ul>
+            <!--            <div class="share-buttons">-->
+            <!--                <p>Share On</p>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener"-->
+            <!--                   name="twitter"-->
+            <!--                   aria-label="share Markdown Syntax Guide on twitter"-->
+            <!--                   href="https://twitter.com/intent/tweet/?text=Markdown%20Syntax%20Guide&amp;url=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="0 0 512 512">-->
+            <!--                        <path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512h-386.892c-34.524.0-62.554-28.03-62.554-62.554v-386.892c0-34.524 28.029-62.554 62.554-62.554h386.892zm-253.927 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener" name="linkedin"-->
+            <!--                   aria-label="share Markdown Syntax Guide on linkedin"-->
+            <!--                   href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f&amp;title=Markdown%20Syntax%20Guide&amp;summary=Markdown%20Syntax%20Guide&amp;source=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="0 0 512 512">-->
+            <!--                        <path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512h-386.892c-34.524.0-62.554-28.03-62.554-62.554v-386.892c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0v-129.439c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02v-126.056c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768h75.024zm-307.552-334.556c-25.674.0-42.448 16.879-42.448 39.002.0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener" name="reddit"-->
+            <!--                   aria-label="share Markdown Syntax Guide on reddit"-->
+            <!--                   href="https://reddit.com/submit?url=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f&amp;title=Markdown%20Syntax%20Guide">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="0 0 512 512">-->
+            <!--                        <path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512h-386.892c-34.524.0-62.554-28.03-62.554-62.554v-386.892c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zm-119.474 108.193c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zm-160.386-29.702c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener" name="facebook"-->
+            <!--                   aria-label="share Markdown Syntax Guide on facebook"-->
+            <!--                   href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="0 0 512 512">-->
+            <!--                        <path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978v-192.915h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554v-386.892c0-34.524 28.029-62.554 62.554-62.554h386.892z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener" name="whatsapp"-->
+            <!--                   aria-label="share Markdown Syntax Guide on whatsapp"-->
+            <!--                   href="whatsapp://send?text=Markdown%20Syntax%20Guide%20-%20https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="0 0 512 512">-->
+            <!--                        <path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512h-386.892c-34.524.0-62.554-28.03-62.554-62.554v-386.892c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23-13.314-11.876-22.304-26.542-24.916-31.026s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--                <a class="share-button-single" target="_blank" rel="noopener" name="telegram"-->
+            <!--                   aria-label="share Markdown Syntax Guide on telegram"-->
+            <!--                   href="https://telegram.me/share/url?text=Markdown%20Syntax%20Guide&amp;url=https%3a%2f%2fadityatelange.github.io%2fhugo-PaperMod%2fposts%2fmarkdown-syntax%2f">-->
+            <!--                    <svg style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"-->
+            <!--                         viewBox="2 2 28 28">-->
+            <!--                        <path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47A3.38 3.38.0 0126.49 29.86zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"></path>-->
+            <!--                    </svg>-->
+            <!--                </a>-->
+            <!--            </div>-->
+        </footer>
+    </article>
+</main>
+<footer class="footer">
+    <span>© 2020 <a href="https://gitee.com/haust_lyb">haust_lyb</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top">
+    <button class="top-link" id="top-link" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+            <path d="M12 6H0l6-6z"></path>
+        </svg>
+    </button>
+</a>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({behavior: "smooth"});
+        });
+    });
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+    // document.body.style.backgroundImage="URL(./statics/imgs/bg.png)";
+</script>
+
+
+<!-- Snow Start -->
+<canvas id="Snow"></canvas>
+<script>
+    if (screen && screen.width > 768) {
+        (function () {
+            var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+            window.requestAnimationFrame = requestAnimationFrame;
+        })();
+
+        (function () {
+            var flakes = [],
+                canvas = document.getElementById("Snow"),
+                ctx = canvas.getContext("2d"),
+                flakeCount = 200,
+                mX = -100,
+                mY = -100;
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            function snow() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < flakeCount; i++) {
+                    var flake = flakes[i],
+                        x = mX,
+                        y = mY,
+                        minDist = 150,
+                        x2 = flake.x,
+                        y2 = flake.y;
+
+                    var dist = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)),
+                        dx = x2 - x,
+                        dy = y2 - y;
+
+                    if (dist < minDist) {
+                        var force = minDist / (dist * dist),
+                            xcomp = (x - x2) / dist,
+                            ycomp = (y - y2) / dist,
+                            deltaV = force / 2;
+
+                        flake.velX -= deltaV * xcomp;
+                        flake.velY -= deltaV * ycomp;
+
+                    } else {
+                        flake.velX *= .98;
+                        if (flake.velY <= flake.speed) {
+                            flake.velY = flake.speed
+                        }
+                        flake.velX += Math.cos(flake.step += .05) * flake.stepSize;
+                    }
+
+                    ctx.fillStyle = "rgba(255,255,255," + flake.opacity + ")";
+                    flake.y += flake.velY;
+                    flake.x += flake.velX;
+
+                    if (flake.y >= canvas.height || flake.y <= 0) {
+                        reset(flake);
+                    }
+
+                    if (flake.x >= canvas.width || flake.x <= 0) {
+                        reset(flake);
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(snow);
+            };
+
+            function reset(flake) {
+                flake.x = Math.floor(Math.random() * canvas.width);
+                flake.y = 0;
+                flake.size = (Math.random() * 3) + 2;
+                flake.speed = (Math.random() * 1) + 0.5;
+                flake.velY = flake.speed;
+                flake.velX = 0;
+                flake.opacity = (Math.random() * 0.5) + 0.3;
+            }
+
+            function init() {
+                for (var i = 0; i < flakeCount; i++) {
+                    var x = Math.floor(Math.random() * canvas.width),
+                        y = Math.floor(Math.random() * canvas.height),
+                        size = (Math.random() * 3) + 2,
+                        speed = (Math.random() * 1) + 0.5,
+                        opacity = (Math.random() * 0.5) + 0.3;
+
+                    flakes.push({
+                        speed: speed,
+                        velY: speed,
+                        velX: 0,
+                        x: x,
+                        y: y,
+                        size: size,
+                        stepSize: (Math.random()) / 30 * 1,
+                        step: 0,
+                        angle: 180,
+                        opacity: opacity
+                    });
+                }
+
+                snow();
+            };
+
+            document.addEventListener("mousemove", function (e) {
+                mX = e.clientX,
+                    mY = e.clientY
+            });
+            window.addEventListener("resize", function () {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+            init();
+            //$(".colorpick-btn")[1].click();//模拟点击 更换皮肤
+        })();
+    }
+</script>
+<script src="./statics/jquery/jquery.min.js"></script>
+<script src="./statics/headBand/headBand.min.js"></script>
+<script src="./statics/editor/lib/marked.min.js"></script>
+<script src="./statics/editor/lib/prettify.min.js"></script>
+
+<script src="./statics/editor/lib/raphael.min.js"></script>
+<script src="./statics/editor/lib/underscore.min.js"></script>
+<script src="./statics/editor/lib/sequence-diagram.min.js"></script>
+<script src="./statics/editor/lib/flowchart.min.js"></script>
+<script src="./statics/editor/lib/jquery.flowchart.min.js"></script>
+<script src="./statics/editor/editormd.min.js"></script>
+
+
+<script type="text/javascript">
+    var testEditor;
+    $(function () {
+        testEditormdView2 = editormd.markdownToHTML("lyb-editormd-view", {
+            htmlDecode: "style,script,iframe",  // you can filter tags decode
+            emoji: false,
+            taskList: true,
+            tex: true,  // 默认不解析
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
+            //toc             : false,
+            tocm: true,    // Using [TOCM]
+            tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
+            //gfm             : false,
+            tocDropdown: false,
+            // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+            onload: function () {
+                // alert("xianshi")
+            }
+        });
+
+        $('.headBand').headBand({
+            'background': '#f305cb',
+            'height': "6"
+        });
+
+    });
+</script>
+
+</body>
+</html>
