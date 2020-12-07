@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>接口文档模板</title>
+    <title>MySQL的自动备份</title>
     <!--    <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">-->
     <!--    <meta name="author" content="Theme PaperMod">-->
     <!--    <link rel="canonical" href="https://adityatelange.github.io/hugo-PaperMod/">-->
@@ -70,9 +70,9 @@
 <main class="main">
     <article class="post-single">
         <header class="post-header">
-            <h1 class="post-title">接口文档模板</h1>
+            <h1 class="post-title">MySQL的自动备份</h1>
             <div class="post-meta">
-                <time>2020-11-14 05:38:48</time>
+                <time>2020-12-07 11:52:03</time>
             </div>
         </header>
         <div class="post-content" style="background: white;border: 1px dashed lightgray">
@@ -82,53 +82,94 @@
             </div>
             <div style="height: 2px;background: #99cc99"></div>
             <div id="lyb-editormd-view">
-                <textarea style="display:none;">> ### 用户注册接口
+                <textarea style="display:none;"># MySQL备份
 
-**请求URL：** 
-- ` http://xx.com/api/user/register `
-  
-**请求方式：**
-- POST 
+## Linux
 
-**参数：** 
+### 准备工作
+将MySQL加入到环境变量，此处方法不再赘述，可参考MySQL的安装教程。
+在某个目录中（比如/root/dbbackup）建立如下图所示的文件结构：backupdb.sh、dbfiles、数据库名_backupdb.sh(你需要备份的每个数据库一个文件)
 
-|参数名|必选|类型|说明|
-|:----    |:---|:----- |-----   |
-|username |是  |string |用户名   |
-|password |是  |string | 密码    |
-|name     |否  |string | 昵称    |
+![图片alt](../uploads/editor_imgs/2020/12/1/e55d92004e0a40ad8e5aa8613abc8e15__file_1607311398000.png ''图片title'')
 
- **返回示例**
+### 文件内容
+将如下的脚本内容写入对应的文件内
 
-``` 
-  {
-    "error_code": 0,
-    "data": {
-      "uid": "1",
-      "username": "12154545",
-      "name": "吴系挂",
-      "groupid": 2 ,
-      "reg_time": "1436864169",
-      "last_login_time": "0",
-    }
-  }
+#### backupdb.sh
+这个是一个比较灵活的备份，会提示让你输入数据库和密码进行备份，备份文件在dbfiles中。
+
+```sql
+#!/bin/sh
+echo begin backup the database ....
+echo 请输入数据库名：
+read db_name
+echo 输入数据库密码：
+read db_password
+# 命名规则
+backup_dbname=`date +'%Y%m%d_%H%M%S'`
+# 存储目录的根目录
+backup_dir="./dbfiles/"
+backup_cmd="mysqldump -uroot -h127.0.0.1 -p${db_password} ${db_name} > ${backup_dir}/backup_${db_name}_${backup_dbname}.sql"
+echo $backup_cmd
+eval $backup_cmd
+echo 备份backup_$backup_dbname.sql完毕
+echo end backup the database ....
 ```
 
- **返回参数说明** 
+#### sh_ycyl_v1_backupdb.sh
+该文件是对sh_ycyl_v1的备份脚本，执行过程中无需手动输入用户名和密码，但要在脚本中写好，可以参考注释修改即可，命名其实可以随便取，如果有多个备份脚本最好有一定的命名规范，日后会比较好找，备份文件在dbfiles中。
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|groupid |int   |用户组id，1：超级管理员；2：普通用户  |
+```sql
+#!/bin/sh
+# 数据库的名称（根据自己的进行修改）
+db_name=sh_ycyl_v1
+# 数据库的密码（根据自己的进行修改）
+db_password=asdfasd
+# 数据库备份文件的文件命名规则
+backup_dbname=`date +'%Y%m%d_%H%M%S'`
+# 数据库备份文件存储根目录
+backup_dir="./dbfiles/"
+echo 正在进行数据库${db_name}的备份 ....
+backup_cmd="mysqldump -uroot -h127.0.0.1 -p${db_password} ${db_name} > ${backup_dir}/backup_${db_name}_${backup_dbname}.sql"
+echo $backup_cmd
+eval $backup_cmd
 
- **备注** 
+tar_cmd="tar zcvf ${backup_dir}/backup_${db_name}_${backup_dbname}.tar.gz ${backup_dir}/backup_${db_name}_${backup_dbname}.sql"
+echo $tar_cmd
+eval $tar_cmd
 
-- 更多返回错误代码请看首页的错误代码描述</textarea>
+echo 备份backup_$backup_dbname.sql完毕
+echo end backup the database ....
+
+```
+
+#### sh_ycyl_v1_debug_backupdb.sh
+这是对另外一个数据库的备份，其内容和sh_ycyl_v1_backupdb.sh一致，除了数据库名称和密码可能会不同。执行该脚本是对sh_ycyl_v1_debug数据库进行备份。
+
+### 定时备份
+crontab -e进入当前用户的工作表编辑
+每天的23点59分运行/root/dbbackup/sh_ycyl_v1_backupdb.sh这个脚本
+
+```shell
+59 23 * * * /root/dbbackup/sh_ycyl_v1_backupdb.sh
+```
+
+eg:
+
+![图片alt](../uploads/editor_imgs/2020/12/1/4b791ac8fb4e4ab2ab86ab0c3b06bcba__file_1607312843000.png ''图片title'')
+
+至此自动备份完成。
+
+
+## Windows
+
+待补充</textarea>
             </div>
         </div>
         <footer class="post-footer" style="background: white;padding: 10px;">
             标签（分类）：
             <ul class="post-tags" style="margin-top: 0px;">
-                <li><a href="#">其他 / 其他</a></li>
+                <li><a href="#">后端开发 / MySQL</a></li>
 
             </ul>
             <!--            <div class="share-buttons">-->

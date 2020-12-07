@@ -12,6 +12,7 @@
     <!--    <link rel="apple-touch-icon" href="https://adityatelange.github.io/hugo-PaperMod/apple-touch-icon.png">-->
     <link rel="icon" href="statics/imgs/lybblog.ico">
     <link rel="stylesheet" href="statics/css/lybblog.css">
+    <link rel="stylesheet" href="statics/imgviewer/viewer.min.css">
     <meta name="baidu-site-verification" content="code-w3pNK7OBaJ" />
     <!--    <link rel="stylesheet" href="./statics/editor/css/editormd.min.css" />-->
     <link rel="stylesheet" href="./statics/editor/css/editormd.preview.min.css"/>
@@ -40,7 +41,7 @@
         .post-tags li:nth-child(8n) a{ background: #83AF9B }
         .post-tags li:first-child a{ background: #036564 }
         .post-tags li:last-child a{ background: #3299BB }
-
+        .viewer-toolbar{padding: 5px 0px!important;}
 
     </style>
 </head>
@@ -96,6 +97,7 @@
 | lsof -i:9090  | 查找占用某个端口的进程ID  | lsof -i:9090  |
 | chattr -R +a 文件或文件夹名 | 加锁 ，不能删除，可以修改添加，允许替换 | 无|
 | chattr -R -a 文件或文件夹名 | 去掉锁。同上，R的意思是递归 | 无 |
+| 软连接的建立 | ln -s /usr/mydir1 /usr/mydir2 | 相当于Windows中创建mydir1的快捷方式，然后吧改快捷方式放到mydir2目录下，最后mydir2下就有了mydir1的目录 ***软连接的删除要注意，容易删除的时候吧原始目录的文件附带的删除掉，如果仅仅想删除mydir2文件夹下的mydir1软连接，请注意rm -rf /usr/mydir2/mydir1 一定不要在最后添加/，不然就会出现真真的mydir1下没有任何东西了*** |
 
 # docker 常见命令
 | 命令  | 说明  |
@@ -332,6 +334,7 @@
     }
 </script>
 <script src="./statics/jquery/jquery.min.js"></script>
+<script src="./statics/imgviewer/viewer-jquery.min.js"></script>
 <script src="./statics/headBand/headBand.min.js"></script>
 <script src="./statics/editor/lib/marked.min.js"></script>
 <script src="./statics/editor/lib/prettify.min.js"></script>
@@ -368,6 +371,10 @@
         $('.headBand').headBand({
             'background': '#f305cb',
             'height': "6"
+        });
+
+        $('#lyb-editormd-view').viewer({
+            url: 'data-original',
         });
 
     });

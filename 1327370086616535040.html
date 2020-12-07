@@ -12,6 +12,7 @@
     <!--    <link rel="apple-touch-icon" href="https://adityatelange.github.io/hugo-PaperMod/apple-touch-icon.png">-->
     <link rel="icon" href="statics/imgs/lybblog.ico">
     <link rel="stylesheet" href="statics/css/lybblog.css">
+    <link rel="stylesheet" href="statics/imgviewer/viewer.min.css">
     <meta name="baidu-site-verification" content="code-w3pNK7OBaJ" />
     <!--    <link rel="stylesheet" href="./statics/editor/css/editormd.min.css" />-->
     <link rel="stylesheet" href="./statics/editor/css/editormd.preview.min.css"/>
@@ -40,7 +41,7 @@
         .post-tags li:nth-child(8n) a{ background: #83AF9B }
         .post-tags li:first-child a{ background: #036564 }
         .post-tags li:last-child a{ background: #3299BB }
-
+        .viewer-toolbar{padding: 5px 0px!important;}
 
     </style>
 </head>
@@ -328,6 +329,7 @@
     }
 </script>
 <script src="./statics/jquery/jquery.min.js"></script>
+<script src="./statics/imgviewer/viewer-jquery.min.js"></script>
 <script src="./statics/headBand/headBand.min.js"></script>
 <script src="./statics/editor/lib/marked.min.js"></script>
 <script src="./statics/editor/lib/prettify.min.js"></script>
@@ -364,6 +366,10 @@
         $('.headBand').headBand({
             'background': '#f305cb',
             'height': "6"
+        });
+
+        $('#lyb-editormd-view').viewer({
+            url: 'data-original',
         });
 
     });

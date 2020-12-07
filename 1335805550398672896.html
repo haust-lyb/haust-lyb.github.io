@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <title>接口文档模板</title>
+    <title>各种评论系统</title>
     <!--    <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">-->
     <!--    <meta name="author" content="Theme PaperMod">-->
     <!--    <link rel="canonical" href="https://adityatelange.github.io/hugo-PaperMod/">-->
@@ -70,9 +70,9 @@
 <main class="main">
     <article class="post-single">
         <header class="post-header">
-            <h1 class="post-title">接口文档模板</h1>
+            <h1 class="post-title">各种评论系统</h1>
             <div class="post-meta">
-                <time>2020-11-14 05:38:48</time>
+                <time>2020-12-07 12:37:15</time>
             </div>
         </header>
         <div class="post-content" style="background: white;border: 1px dashed lightgray">
@@ -82,47 +82,22 @@
             </div>
             <div style="height: 2px;background: #99cc99"></div>
             <div id="lyb-editormd-view">
-                <textarea style="display:none;">> ### 用户注册接口
+                <textarea style="display:none;"># 各种评论系统的比较
 
-**请求URL：** 
-- ` http://xx.com/api/user/register `
-  
-**请求方式：**
-- POST 
+## 知乎
+缺点：多次回复某一个人的多条，会让人分不清回复针对的具体的内容。
+![图片alt](../uploads/editor_imgs/2020/12/1/0c34d66c05ec4e9c8631ba06de320b98__file_1607315001000.png ''图片title'')
 
-**参数：** 
+## 畅言
+针对每条评论进行上诉，直到显示到根评论，优点是直线的思路清晰，横向模糊，你甚至不知道这条评论下有多少评论。。。找起来也很复杂。
+![图片alt](../uploads/editor_imgs/2020/12/1/4d31e20ad8164b669b14e482ba096f32__file_1607315190000.png ''图片title'')
 
-|参数名|必选|类型|说明|
-|:----    |:---|:----- |-----   |
-|username |是  |string |用户名   |
-|password |是  |string | 密码    |
-|name     |否  |string | 昵称    |
+![图片alt](../uploads/editor_imgs/2020/12/1/a4658aef39f8489d8de0b272008aeaaf__file_1607315225000.png ''图片title'')
 
- **返回示例**
 
-``` 
-  {
-    "error_code": 0,
-    "data": {
-      "uid": "1",
-      "username": "12154545",
-      "name": "吴系挂",
-      "groupid": 2 ,
-      "reg_time": "1436864169",
-      "last_login_time": "0",
-    }
-  }
-```
+## 思考
 
- **返回参数说明** 
-
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|groupid |int   |用户组id，1：超级管理员；2：普通用户  |
-
- **备注** 
-
-- 更多返回错误代码请看首页的错误代码描述</textarea>
+弹幕形式的评论其实不错 尽管是blog也可以尝试；或者类似于知乎，但是要改掉知乎评论的缺点，吧回复的人@出来，然后附带一些简短的内容。</textarea>
             </div>
         </div>
         <footer class="post-footer" style="background: white;padding: 10px;">
