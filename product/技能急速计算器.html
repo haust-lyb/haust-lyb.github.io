@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>技能急速计算器</title>
+    <script src="https://haust_lyb.gitee.io/statics/vue/vue.js"></script>
+</head>
+<body style="background: url('https://haust_lyb.gitee.io/uploads/editor_imgs/2020/12/1/6837f1f2f24f4d14a6353fb63f138f75__file_1607064295000.png');">
+<div style="display: flex;justify-content: center;">
+    <div id="lol" style="background: #dbdcdcd6;padding: 20px;">
+        <p>
+            旧版本的技能冷却缩减很好理解，冷却缩减50那么就会导致本来你的技能需要10秒冷却现在剩下5秒冷却了；
+            新版本叫做技能急速，这有点恶心了，计算公式不太好理解，这里我就提供了一个技能急速和技能冷却的转换器，方便大家计算。
+        </p>
+        技能冷却时间： <input type="text" placeholder="基础冷却时间（s）" v-model="coolDownTime">
+        <hr>
+        技能急速数值： <input type="text" placeholder="技能急速（s）" v-model="jinengjisu">
+        <br>之后的cd： {{Math.round(parseInt(coolDownTime)/(1+parseInt(jinengjisu)/100))}} ，相当于{{100-(10000/(100+parseInt(jinengjisu)))}}点的冷却缩减
+        <hr>
+        冷却缩减数值： <input type="text" placeholder="冷却缩减（s）" v-model="jinenglengque">
+        <br>之后的cd：  {{Math.round(parseInt(coolDownTime) - parseInt(coolDownTime)*(parseInt(jinenglengque)/100))}} ， 相当于{{(10000/(100-parseInt(jinenglengque)))-100}}点的技能急速
+    </div>
+</div>
+
+
+    <script>
+
+        new Vue({
+            el:"#lol",
+            data:{
+                coolDownTime:10,
+                jinengjisu:100,
+                jinenglengque:50
+            }
+        })
+    </script>
+</body>
+</html>
